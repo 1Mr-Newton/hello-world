@@ -2,7 +2,10 @@
 language = "python"
 
 [phases.setup]
-commands = ["pip install -r requirements.txt"]
+commands = ["nix-env -iA nixpkgs.python38 nixpkgs.python38Packages.pip"]
+
+[phases.install]
+commands = ["python3 -m venv /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt"]
 
 [scripts]
 start = "uvicorn main:app --host 0.0.0.0 --port $PORT"
