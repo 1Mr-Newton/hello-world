@@ -1,20 +1,16 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.9-slim
+FROM python:3.10.13-bookworm
 
-# Set the working directory in the container
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
+RUN mkdir /app
+
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+RUN pip install --upgrade pip
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application code into the container
 COPY . .
 
-# Expose the port on which the app will run
-EXPOSE 8000
+RUN pip install -r requirements.txt
 
-# Command to run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+ 

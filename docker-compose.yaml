@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/igscraper
+    ports:
+      - "8000"
